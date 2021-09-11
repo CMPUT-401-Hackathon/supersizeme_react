@@ -4,16 +4,19 @@ import { Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   buttonStyle: {
-		padding: 24,
-		paddingHorizontal: 50,
+		padding: 12,
+		paddingHorizontal: 25,
   },
 	buttonContainer: {
 		flexDirection:'row',
 		justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
 	},
 	buttonText: {
 		color: 'black'
+	},
+	yellowBackground: {
+		backgroundColor: '#FFC72C'
 	}
 });
 const Login = (props) => {
@@ -42,6 +45,7 @@ const Login = (props) => {
 						title="Login"
 						type={buttonSelected === 1 ? "solid" : "clear"}
 						titleStyle={styles.buttonText}
+						buttonStyle={buttonSelected === 1 ? [styles.buttonStyle, styles.yellowBackground] : styles.buttonStyle}
 						onPress={() => buttonClicked('login')}
 					/>
 				</View>
@@ -50,6 +54,7 @@ const Login = (props) => {
 						title="Sign Up"
 						type={buttonSelected === 2 ? "solid" : "clear"}
 						titleStyle={styles.buttonText}
+						buttonStyle={buttonSelected === 2 ? [styles.buttonStyle, styles.yellowBackground] : styles.buttonStyle}
 						onPress={() => buttonClicked('signup')}
 					/>
 				</View>
