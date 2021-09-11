@@ -77,6 +77,7 @@ const Main = ({navigation, route}) => {
 				{
 					days.map(day => {
 						return <NutrientCard 
+							key={day.date}
 							current={day.info}
 							recommend={temp_rec}
 							date={day.date}
