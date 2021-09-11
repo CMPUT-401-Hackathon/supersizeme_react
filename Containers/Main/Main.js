@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Image, View, StyleSheet } from 'react-native';
+import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
@@ -37,13 +37,33 @@ const temp_curr = {
 
 const Main = ({navigation, route}) => {
     return (
-		<View>
+		<ScrollView>
 			<NutrientCard 
 				current={temp_curr}
 				recommend={temp_rec}
 				date={new Date()}
 			/>
-		</View>
+			<NutrientCard 
+				current={temp_curr}
+				recommend={temp_rec}
+				date={new Date(-1)}
+			/>
+			<NutrientCard 
+				current={temp_curr}
+				recommend={temp_rec}
+				date={new Date(-2)}
+			/>
+			<NutrientCard 
+				current={temp_curr}
+				recommend={temp_rec}
+				date={new Date(-3)}
+			/>
+			<NutrientCard 
+				current={temp_curr}
+				recommend={temp_rec}
+				date={new Date()}
+			/>
+		</ScrollView>
     );
 }
 

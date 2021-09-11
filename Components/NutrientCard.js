@@ -9,7 +9,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 
 const capitalizeFirstLetter = (string) => {
 	return string.charAt(0).toUpperCase() + string.slice(1);
-}  
+}
 
 const colours = {
 	'calories': '#348ceb',
