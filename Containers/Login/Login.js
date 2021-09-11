@@ -47,8 +47,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
+	bottom: {
+		paddingTop: 100,
+    justifyContent: 'flex-end',
+	},
+	loginForm: {
+		padding: 12,
+		justifyContent: 'center',
+		height: '80%'
+	},
 });
-const Login = (props) => {
+const Login = ({navigation, props}) => {
 
   const [loggedIn, setLoggedIn] = useState(false);
 	const [buttonSelected, setButtonSelected] = useState(1);
@@ -93,7 +102,6 @@ const Login = (props) => {
 			default:
 				console.log('unknown value added to form');
 		}
-		console.log(username, age, height, weight);
 	}
 
 	const updateSexIndex = (i) => {
@@ -102,6 +110,19 @@ const Login = (props) => {
 
 	const activityChanged = (selectedItem, index) => {
 		activity = index+1;
+	}
+
+	const signUp = () => {
+		console.log('send http request to make a new account');
+	}
+
+	const login = () => {
+		console.log('send http request for login');
+		setLoggedIn(true);
+
+		if (username.length !== 0) {
+			navigation.replace('Main');
+		}
 	}
 
 	return (
@@ -126,66 +147,84 @@ const Login = (props) => {
 					/>
 				</View>
 			</View>
-			<View style={styles.inputForm}>
-				<Input
-					placeholder='Username'
-					onChangeText={value => formChanged('username', value)}
-				/>
-				<Input
-					placeholder='Age'
-					onChangeText={value => formChanged('age', value)}
-				/>
-				<Input
-					placeholder='Height'
-					onChangeText={value => formChanged('height', value)}
-				/>
-				<Input
-					placeholder='Weight'
-					onChangeText={value => formChanged('weight', value)}
-				/>
+			{ buttonSelected == 2 
+			? <View style={styles.inputForm}>
+					<Input
+						placeholder='Username'
+						onChangeText={value => formChanged('username', value)}
+					/>
+					<Input
+						placeholder='Age'
+						onChangeText={value => formChanged('age', value)}
+					/>
+					<Input
+						placeholder='Height'
+						onChangeText={value => formChanged('height', value)}
+					/>
+					<Input
+						placeholder='Weight'
+						onChangeText={value => formChanged('weight', value)}
+					/>
 
-				<Text style={styles.formLabel}>Sex</Text>
-				<ButtonGroup
-					onPress={updateSexIndex}
-					selectedIndex={sexSelected}
-					buttons={sexes}
-					selectedButtonStyle={styles.yellowBackground}
-				/>
+					<Text style={styles.formLabel}>Sex</Text>
+					<ButtonGroup
+						onPress={updateSexIndex}
+						selectedIndex={sexSelected}
+						buttons={sexes}
+						selectedButtonStyle={styles.yellowBackground}
+					/>
 
-				<Text style={styles.formLabel}>Activity Level</Text>
-				<SelectDropdown
-            data={activityLevels}
+					<Text style={styles.formLabel}>Activity Level</Text>
+					<SelectDropdown
+							data={activityLevels}
 
-            onSelect={(selectedItem, index) => {
-              activityChanged(selectedItem, index);
-            }}
-            defaultButtonText={"Select Activity Level"}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            buttonStyle={styles.dropdown2BtnStyle}
-            buttonTextStyle={styles.dropdown2BtnTxtStyle}
-            renderDropdownIcon={() => {
-              return (
-                <FontAwesome name="chevron-down" color={"#FFF"} size={18} />
-              );
-            }}
-            dropdownIconPosition={"right"}
-            dropdownStyle={styles.dropdown2DropdownStyle}
-            rowStyle={styles.dropdown2RowStyle}
-            rowTextStyle={styles.dropdown2RowTxtStyle}
-						style={styles.dropdown}
-          />
-			</View>
-			<Button
-				title="Go to Main Page"
-				onPress={() =>
-					console.log(username, age, weight, height, sexSelected, activity)
-				}
-			/>
+							onSelect={(selectedItem, index) => {
+								activityChanged(selectedItem, index);
+							}}
+							defaultButtonText={"Select Activity Level"}
+							buttonTextAfterSelection={(selectedItem, index) => {
+								return selectedItem;
+							}}
+							rowTextForSelection={(item, index) => {
+								return item;
+							}}
+							buttonStyle={styles.dropdown2BtnStyle}
+							buttonTextStyle={styles.dropdown2BtnTxtStyle}
+							renderDropdownIcon={() => {
+								return (
+									<FontAwesome name="chevron-down" color={"#FFF"} size={18} />
+								);
+							}}
+							dropdownIconPosition={"right"}
+							dropdownStyle={styles.dropdown2DropdownStyle}
+							rowStyle={styles.dropdown2RowStyle}
+							rowTextStyle={styles.dropdown2RowTxtStyle}
+							style={styles.dropdown}
+						/>
+					<View style={styles.buttonStyle}>
+						<Button
+							title={"Sign Up"}
+							titleStyle={styles.whiteText}
+							buttonStyle={[styles.buttonStyle, styles.yellowBackground]}
+							onPress={() => signUp()}
+						/>
+					</View>
+				</View>
+				: <View style={styles.loginForm}>
+						<Input
+							placeholder='Username'
+							onChangeText={value => formChanged('username', value)}
+						/>
+						<View style={styles.buttonStyle}>
+							<Button
+								title={"Login"}
+								titleStyle={styles.whiteText}
+								buttonStyle={[styles.buttonStyle, styles.yellowBackground]}
+								onPress={() => login()}
+							/>
+					</View>
+					</View>	
+			}
 		</View>
 	);
 }
