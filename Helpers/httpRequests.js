@@ -1,0 +1,1 @@
+// All http requests should be defined here
