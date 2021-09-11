@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements';
+import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 import NutrientCard from '../../Components/NutrientCard';
@@ -28,42 +28,52 @@ const temp_rec = {
 	'fats': 60
 }
 
-const temp_curr = {
-	'calories': 2142,
-	'protein': 134,
-	'carbs': 80,
-	'fats': 100
-}
+const days = [
+	{
+		date: new Date(),
+		info: {
+			'calories': 2142,
+			'protein': 134,
+			'carbs': 80,
+			'fats': 100
+		}
+	}
+]
 
 const Main = ({navigation, route}) => {
+	const [open, setOpen] = useState(false);
+	const [visible, setVisible] = useState(false);
+
+	const toggleOverlay = () => {
+		setVisible(!visible);
+	};	
+
     return (
-		<ScrollView>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date()}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date(-1)}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date(-2)}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date(-3)}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date()}
-			/>
-		</ScrollView>
+		<View style={{height: '100%'}}>
+			<ScrollView>
+				<NutrientCard 
+					current={days[0].info}
+					recommend={temp_rec}
+					date={days[0].date}
+				/>
+			</ScrollView>
+			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+				<Text>Hello from Overlay!</Text>
+			</Overlay>
+			<SpeedDial
+				isOpen={open}
+				icon={{ name: 'edit', color: '#fff' }}
+				openIcon={{ name: 'close', color: '#fff' }}
+				onOpen={() => setOpen(!open)}
+				onClose={() => setOpen(!open)}
+			>
+				<SpeedDial.Action
+					icon={{ name: 'add', color: '#fff' }}
+					title="Add Date"
+					onPress={toggleOverlay}
+				/>
+			</SpeedDial>
+		</View>
     );
 }
 
