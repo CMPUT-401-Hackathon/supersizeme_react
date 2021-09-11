@@ -61,6 +61,7 @@ const Login = (props) => {
 	let age = "";
 	let height = "";
 	let weight = "";
+	let activity;
 
 	const buttonClicked = (title) => {
 		switch (title) {
@@ -97,6 +98,10 @@ const Login = (props) => {
 
 	const updateSexIndex = (i) => {
 		setSexSelected(i);
+	}
+
+	const activityChanged = (selectedItem, index) => {
+		activity = index+1;
 	}
 
 	return (
@@ -152,7 +157,7 @@ const Login = (props) => {
             data={activityLevels}
 
             onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
+              activityChanged(selectedItem, index);
             }}
             defaultButtonText={"Select Activity Level"}
             buttonTextAfterSelection={(selectedItem, index) => {
@@ -175,12 +180,12 @@ const Login = (props) => {
 						style={styles.dropdown}
           />
 			</View>
-			{/* <Button
+			<Button
 				title="Go to Main Page"
 				onPress={() =>
-					props.navigation.navigate('Main')
+					console.log(username, age, weight, height, sexSelected, activity)
 				}
-			/> */}
+			/>
 		</View>
 	);
 }
