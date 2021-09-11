@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 
-class Cat extends Component {
+class Log extends Component {
   render() {
     return (
-      <Text>Hello, I am your cat!</Text>
+      <Text>This is the log page</Text>
     );
   }
 }
 
-export default Cat;
+export default Log;
