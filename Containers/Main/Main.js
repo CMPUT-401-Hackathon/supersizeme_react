@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, Image, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import NutrientCard from '../../Components/NutrientCard';
 
@@ -28,37 +29,77 @@ const temp_rec = {
 	'fats': 60
 }
 
-const days = [
-	{
-		date: new Date(),
-		info: {
-			'calories': 2142,
-			'protein': 134,
-			'carbs': 80,
-			'fats': 100
-		}
-	}
-]
-
 const Main = ({navigation, route}) => {
 	const [open, setOpen] = useState(false);
 	const [visible, setVisible] = useState(false);
+	const [days, setDays] = useState([
+		{
+			date: new Date(),
+			info: {
+				'calories': 2142,
+				'protein': 134,
+				'carbs': 80,
+				'fats': 100
+			}
+		}
+	]);
+
+	const [date, setDate] = useState(new Date());
+  
+	const onChange = (event, selectedDate) => {
+		const currentDate = selectedDate || date;
+		setVisible(Platform.OS === 'ios');
+		setDate(currentDate);
+		};
 
 	const toggleOverlay = () => {
 		setVisible(!visible);
-	};	
+	};
+
+	const newDateAdded = () => {
+		const currentDays = [...days];
+		currentDays.push(
+			{
+				date: date,
+				info: {
+					'calories': 0,
+					'protein': 0,
+					'carbs': 0,
+					'fats': 0
+				}
+			});
+		setDays(currentDays);
+	}
 
     return (
 		<View style={{height: '100%'}}>
 			<ScrollView>
-				<NutrientCard 
-					current={days[0].info}
-					recommend={temp_rec}
-					date={days[0].date}
-				/>
+				{
+					days.map((day, i) => {
+						return <NutrientCard 
+							key={i}
+							current={day.info}
+							recommend={temp_rec}
+							date={day.date}
+						/>
+					})
+				}
 			</ScrollView>
 			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-				<Text>Hello from Overlay!</Text>
+				<View style={{width: 150, alignContent: 'center', justifyContent: 'center'}}>
+					<DateTimePicker
+						testID="dateTimePicker"
+						value={date}
+						mode='date'
+						display="default"
+						onChange={onChange}
+					/>
+					<Button
+						title="Add"
+						type="solid"
+						onPress={() => newDateAdded()}
+					/>
+				</View>
 			</Overlay>
 			<SpeedDial
 				isOpen={open}

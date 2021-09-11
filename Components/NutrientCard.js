@@ -11,14 +11,14 @@ const capitalizeFirstLetter = (string) => {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const colours = {
-	'calories': '#348ceb',
-	'protein': '#ebc334',
-	'carbs': '#25b845',
-	'fats': '#870f35'
-};
-
 const NutrientCard = (props) => {
+    const colours = {
+        'calories': '#348ceb',
+        'protein': '#ebc334',
+        'carbs': '#25b845',
+        'fats': '#870f35'
+    };
+    
     return (
 		<View>
 			<Card>
@@ -65,10 +65,12 @@ const NutrientCard = (props) => {
 							/>
 						</View>
 					</View>
-					<View style={{paddingLeft: 10, alignItems: 'left', justifyContent: 'center'}}>
-						{Object.keys(colours).map((c, i) => <Text key={i} style={[styles.labelText, {color: colours[c]}]}>{capitalizeFirstLetter(c)}</Text>)}
+					<View style={{paddingLeft: 10}}>
+						{Object.keys(colours).map((c, i) => 
+                            <Text key={i} style={[styles.labelText, {color: colours[c]}]}>{capitalizeFirstLetter(c)}</Text>
+                        )}
 					</View>
-					<View style={{paddingLeft: 10, alignItems: 'left', justifyContent: 'center'}}>
+					<View style={{paddingLeft: 10}}>
 						{Object.keys(colours).map((c, i) => <Text key={i} style={[styles.labelText, {color: colours[c]}]}>{Math.floor(props.current[c] / props.recommend[c] * 100)} %</Text>)}
 					</View>
 				</View>
