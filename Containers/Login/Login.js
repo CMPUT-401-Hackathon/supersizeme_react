@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View, Button } from 'react-native';
 
-class Cat extends Component {
-  render() {
+class Login extends Component {
+render() {
     return (
-      <Text>Hello, I am your cat!</Text>
+        <View>
+            <Text>This is the login page</Text>
+            <Button
+                title="Go to Main Page"
+                onPress={() =>
+                    this.props.navigation.navigate('Main')
+                }
+            />
+        </View>
     );
-  }
+}
 }
 
-export default Cat;
+export default Login;
