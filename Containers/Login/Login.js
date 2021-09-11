@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
 	},
 	yellowBackground: {
 		backgroundColor: '#FFC72C'
+	},
+	whiteText: {
+		color: 'white'
 	}
 });
 const Login = (props) => {
@@ -44,7 +47,7 @@ const Login = (props) => {
 					<Button
 						title="Login"
 						type={buttonSelected === 1 ? "solid" : "clear"}
-						titleStyle={styles.buttonText}
+						titleStyle={buttonSelected === 1 ? styles.whiteText : styles.buttonText}
 						buttonStyle={buttonSelected === 1 ? [styles.buttonStyle, styles.yellowBackground] : styles.buttonStyle}
 						onPress={() => buttonClicked('login')}
 					/>
@@ -53,7 +56,7 @@ const Login = (props) => {
 					<Button
 						title="Sign Up"
 						type={buttonSelected === 2 ? "solid" : "clear"}
-						titleStyle={styles.buttonText}
+						titleStyle={buttonSelected === 2 ? styles.whiteText : styles.buttonText}
 						buttonStyle={buttonSelected === 2 ? [styles.buttonStyle, styles.yellowBackground] : styles.buttonStyle}
 						onPress={() => buttonClicked('signup')}
 					/>
