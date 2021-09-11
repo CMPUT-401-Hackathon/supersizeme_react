@@ -5,14 +5,14 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const styles = StyleSheet.create({
-  buttonStyle: {
+	buttonStyle: {
 		padding: 12,
 		paddingHorizontal: 25,
-  },
+	},
 	buttonContainer: {
 		flexDirection:'row',
 		justifyContent: 'center',
-    alignItems: 'center',
+    	alignItems: 'center',
 	},
 	buttonText: {
 		color: 'black'
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 	inputForm: {
 		padding: 12,
 		paddingTop: 50,
-    alignItems: 'center',
+    	alignItems: 'center',
 	},
 	formLabel: {
 		paddingLeft: 12,
@@ -37,19 +37,19 @@ const styles = StyleSheet.create({
 		width: '100%'
 	},
 	dropdown2BtnStyle: {
-    width: "94%",
-    height: 50,
-    backgroundColor: "#FFC72C",
-    borderRadius: 8,
+		width: "94%",
+		height: 50,
+		backgroundColor: "#FFC72C",
+		borderRadius: 8,
   },
 	dropdown2BtnTxtStyle: {
-    color: "#FFF",
-    textAlign: "center",
-    fontWeight: "bold",
+		color: "#FFF",
+		textAlign: "center",
+		fontWeight: "bold",
   },
 	bottom: {
 		paddingTop: 100,
-    justifyContent: 'flex-end',
+    	justifyContent: 'flex-end',
 	},
 	loginForm: {
 		padding: 12,
@@ -121,7 +121,7 @@ const Login = ({navigation, props}) => {
 		setLoggedIn(true);
 
 		if (username.length !== 0) {
-			navigation.replace('Main');
+			navigation.replace('Main', {username});
 		}
 	}
 
