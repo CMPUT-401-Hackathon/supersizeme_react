@@ -47,9 +47,10 @@ const Main = ({navigation, route}) => {
 	const [date, setDate] = useState(new Date());
   
 	const onChange = (event, selectedDate) => {
-	  const currentDate = selectedDate;
-	  setDate(currentDate);
-	};
+		const currentDate = selectedDate || date;
+		setVisible(Platform.OS === 'ios');
+		setDate(currentDate);
+		};
 
 	const toggleOverlay = () => {
 		setVisible(!visible);
