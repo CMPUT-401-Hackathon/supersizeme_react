@@ -28,40 +28,25 @@ const temp_rec = {
 	'fats': 60
 }
 
-const temp_curr = {
-	'calories': 2142,
-	'protein': 134,
-	'carbs': 80,
-	'fats': 100
-}
+const days = [
+	{
+		date: new Date(),
+		info: {
+			'calories': 2142,
+			'protein': 134,
+			'carbs': 80,
+			'fats': 100
+		}
+	}
+]
 
 const Main = ({navigation, route}) => {
     return (
 		<ScrollView>
 			<NutrientCard 
-				current={temp_curr}
+				current={days[0].info}
 				recommend={temp_rec}
-				date={new Date()}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date(-1)}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date(-2)}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date(-3)}
-			/>
-			<NutrientCard 
-				current={temp_curr}
-				recommend={temp_rec}
-				date={new Date()}
+				date={days[0].date}
 			/>
 		</ScrollView>
     );
