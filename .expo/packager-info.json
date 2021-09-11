@@ -3,8 +3,8 @@
   "expoServerPort": 19000,
   "packagerPort": 19000,
   "webpackServerPort": 19006,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://aq-ghu.anonymous.supersizeme-react.exp.direct",
+  "packagerNgrokUrl": "https://packager.aq-ghu.anonymous.supersizeme-react.exp.direct",
+  "ngrokPid": 45761,
   "packagerPid": null
 }

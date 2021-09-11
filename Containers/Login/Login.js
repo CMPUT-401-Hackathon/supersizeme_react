@@ -57,12 +57,10 @@ const Login = (props) => {
 	const sexes = ['Male', 'Female'];
 	const activityLevels = ['Sedentary', 'Light Activity', 'Moderate Activity', 'Active', 'Very Active'];
 
-	const username = "";
-	const age = "";
-	const sex = "";
-	const height = "";
-	const weight = "";
-	const activity = "";
+	let username = "";
+	let age = "";
+	let height = "";
+	let weight = "";
 
 	const buttonClicked = (title) => {
 		switch (title) {
@@ -77,17 +75,24 @@ const Login = (props) => {
 		}
 	}
 
-	const formChanged = (text) => {
-		switch (text) {
-			case 'male':
-				setSexSelected(0);
+	const formChanged = (label, text) => {
+		switch (label) {
+			case 'username':
+				username=text;
 				break;
-			case 'female':
-				setSexSelected(1);
+			case 'age':
+				age=text;
+				break;
+			case 'height':
+				height=text;
+				break;
+			case 'weight':
+				weight=text;
 				break;
 			default:
 				console.log('unknown value added to form');
 		}
+		console.log(username, age, height, weight);
 	}
 
 	const updateSexIndex = (i) => {
@@ -119,15 +124,19 @@ const Login = (props) => {
 			<View style={styles.inputForm}>
 				<Input
 					placeholder='Username'
+					onChangeText={value => formChanged('username', value)}
 				/>
 				<Input
-					placeholder='Gender'
+					placeholder='Age'
+					onChangeText={value => formChanged('age', value)}
 				/>
 				<Input
 					placeholder='Height'
+					onChangeText={value => formChanged('height', value)}
 				/>
 				<Input
 					placeholder='Weight'
+					onChangeText={value => formChanged('weight', value)}
 				/>
 
 				<Text style={styles.formLabel}>Sex</Text>
@@ -166,12 +175,12 @@ const Login = (props) => {
 						style={styles.dropdown}
           />
 			</View>
-			<Button
+			{/* <Button
 				title="Go to Main Page"
 				onPress={() =>
 					props.navigation.navigate('Main')
 				}
-			/>
+			/> */}
 		</View>
 	);
 }
