@@ -75,9 +75,9 @@ const Main = ({navigation, route}) => {
 		<View style={{height: '100%'}}>
 			<ScrollView>
 				{
-					days.map(day => {
+					days.map((day, i) => {
 						return <NutrientCard 
-							key={day.date}
+							key={i}
 							current={day.info}
 							recommend={temp_rec}
 							date={day.date}
