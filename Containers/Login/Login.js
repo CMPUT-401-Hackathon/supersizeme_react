@@ -21,14 +21,37 @@ const Login = (props) => {
   const [loggedIn, setLoggedIn] = useState(false);
 	const [buttonSelected, setButtonSelected] = useState(1);
 
+	const buttonClicked = (title) => {
+		switch (title) {
+			case 'login':
+				setButtonSelected(1);
+				break;
+			case 'signup':
+				setButtonSelected(2);
+				break;
+			default:
+				console.log('unknown button clicked in login page');
+		}
+	}
+
 	return (
 		<View>
 			<View style={styles.buttonContainer}>
 				<View style={styles.buttonStyle}>
-					<Button title="Login" type="clear" titleStyle={styles.buttonText}/>
+					<Button
+						title="Login"
+						type={buttonSelected === 1 ? "solid" : "clear"}
+						titleStyle={styles.buttonText}
+						onPress={() => buttonClicked('login')}
+					/>
 				</View>
 				<View style={styles.buttonStyle}>
-					<Button title="Sign Up" type="clear" titleStyle={styles.buttonText}/>
+					<Button
+						title="Sign Up"
+						type={buttonSelected === 2 ? "solid" : "clear"}
+						titleStyle={styles.buttonText}
+						onPress={() => buttonClicked('signup')}
+					/>
 				</View>
 			</View>
 			<Button
