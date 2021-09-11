@@ -3,6 +3,8 @@ import { Text, Image, View, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
+import NutrientCard from '../../Components/NutrientCard';
+
 const monthNames = ["January", "February", "March", "April", "May", "June",
   	"July", "August", "September", "October", "November", "December"
 ];
@@ -36,59 +38,11 @@ const temp_curr = {
 const Main = ({navigation, route}) => {
     return (
 		<View>
-			<Card>
-				<Card.Title>{monthNames[d.getMonth()] + " " + d.getDate()}</Card.Title>
-				<Card.Divider/>
-				<View style={{flexDirection:"row"}}>
-					<View styles={styles.circleContainer}>
-						<CircularProgress
-							showProgressValue={false}
-							value={temp_curr['calories'] > temp_rec['calories'] ? temp_rec['calories'] : temp_curr['calories']}
-							radius={120}
-							duration={2000}
-							maxValue={temp_rec['calories']}
-							activeStrokeColor={colours['calories']}
-						/>
-						<View style={styles.circleSecond}>
-							<CircularProgress
-								showProgressValue={false}
-								value={temp_curr['protein'] > temp_rec['protein'] ? temp_rec['protein'] : temp_curr['protein']}
-								radius={100}
-								duration={2000}
-								maxValue={temp_rec['protein']}
-								activeStrokeColor={colours['protein']}
-							/>
-						</View>
-						<View style={styles.circleThird}>
-							<CircularProgress
-								showProgressValue={false}
-								value={temp_curr['carbs'] > temp_rec['carbs'] ? temp_rec['carbs'] : temp_curr['carbs']}
-								radius={80}
-								duration={2000}
-								maxValue={temp_rec['carbs']}
-								activeStrokeColor={colours['carbs']}
-							/>
-						</View>
-						<View style={styles.circleFourth}>
-							<CircularProgress
-								showProgressValue={false}
-								value={temp_curr['fats'] > temp_rec['fats'] ? temp_rec['fats'] : temp_curr['fats']}
-								radius={60}
-								duration={2000}
-								maxValue={temp_rec['fats']}
-								activeStrokeColor={colours['fats']}
-							/>
-						</View>
-					</View>
-					<View style={{paddingLeft: 10, alignItems: 'left', justifyContent: 'center'}}>
-						{Object.keys(colours).map((c, i) => <Text key={i} style={[styles.labelText, {color: colours[c]}]}>{capitalizeFirstLetter(c)}</Text>)}
-					</View>
-					<View style={{paddingLeft: 10, alignItems: 'left', justifyContent: 'center'}}>
-						{Object.keys(colours).map((c, i) => <Text key={i} style={[styles.labelText, {color: colours[c]}]}>{Math.floor(temp_curr[c] / temp_rec[c] * 100)} %</Text>)}
-					</View>
-				</View>
-			</Card>
-
+			<NutrientCard 
+				current={temp_curr}
+				recommend={temp_rec}
+				date={new Date()}
+			/>
 		</View>
     );
 }
