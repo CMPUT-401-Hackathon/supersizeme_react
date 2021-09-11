@@ -17,10 +17,22 @@ export default function App() {
         <Stack.Screen
           name="Login"
           component={Login}
+          options={{
+            title: '',
+            headerStyle: {
+              height: '0px'
+            }
+          }}
         />
         <Stack.Screen
           name="Main"
           component={Main}
+          options={{
+            title: '',
+            headerStyle: {
+              height: '0px'
+            }
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
