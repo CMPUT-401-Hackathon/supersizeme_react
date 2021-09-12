@@ -127,11 +127,15 @@ const Login = ({navigation, props}) => {
 
 	const login = () => {
 		console.log('send http request for login');
-		setLoggedIn(true);
 
-		if (username.length !== 0) {
-			navigation.replace('Main', {username});
-		}
+		axios.get(`http://127.0.0.1:8000/User/${username}/login/`).then(resp => {
+
+			if (resp.status === 200) {
+				console.log(resp.data)
+				navigation.replace('Main', {username: resp.data.user, age: resp.data.age, height: resp.data.height, gender: resp.data.gender, weight: resp.data.weight, activityLevel:resp.data.activityLevel});
+			}
+		});
+
 	}
 
 	return (

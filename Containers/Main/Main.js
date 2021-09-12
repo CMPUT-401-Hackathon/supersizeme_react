@@ -23,28 +23,18 @@ const colours = {
 	'fats': '#870f35'
 };
 
-const temp_rec = {
-	'calories': 2500,
-	'protein': 200,
-	'carbs': 300,
-	'fats': 60
+let temp_rec = {
+	'calories': 0,
+	'protein': 0,
+	'carbs': 0,
+	'fats': 0
 }
 
 const Main = ({navigation, route}) => {
 	const [open, setOpen] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [showDateTime, setShowDateTime] = useState(true);
-	const [days, setDays] = useState([
-		{
-			date: new Date(),
-			info: {
-				'calories': 2142,
-				'protein': 134,
-				'carbs': 80,
-				'fats': 100
-			}
-		}
-	]);
+	const [days, setDays] = useState([]);
 	const [date, setDate] = useState(new Date());
 
 	const [categories, setCategories] = useState([]);
@@ -88,7 +78,22 @@ const Main = ({navigation, route}) => {
 	}
 
 	DeviceEventEmitter.addListener("event.itemClicked", (d) => {
-		// update user data here
+		axios.get(`http://127.0.0.1:8000/log/${username}/`)
+		.then(res => {
+			let arraydata = [];
+			res.data.forEach(function(obj){
+				arraydata.push({
+					date: new Date(obj.date),
+					info: {
+						'calories': obj.calories,
+						'protein': obj.protein,
+						'carbs': obj.carbohydrates,
+						'fats': obj.total_fat
+					}
+				});
+			});
+			setDays(arraydata);
+		});
 	});
 
 	useEffect(() => {
@@ -96,6 +101,25 @@ const Main = ({navigation, route}) => {
 		axios.get(`http://127.0.0.1:8000/nutrition/`)
 		.then(res => {
 			setCategories(res.data);
+		});
+		axios.get(`http://127.0.0.1:8000/log/${username}/`)
+		.then(res => {
+			let arraydata = []
+			res.data.forEach(function(obj){
+				arraydata.push({
+					date: new Date(obj.date),
+					info: {
+						'calories': obj.calories,
+						'protein': obj.protein,
+						'carbs': obj.carbohydrates,
+						'fats': obj.total_fat
+					}
+				});
+			});
+			setDays(arraydata);
+		});
+		axios.get(`http://127.0.0.1:8000/User/${username}/calrecs/`).then(res => {
+			temp_rec = res.data
 		});
 	}, []);
 
