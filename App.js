@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Login from './Containers/Login/Login';
 import Main from './Containers/Main/Main';
 import Menu from './Containers/Menu/Menu';
+import User from './Containers/User/User';
+import NutrientCard from './Components/NutrientCard';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -44,6 +48,16 @@ export default function App() {
               height: '0px'
             }
           }}
+        />
+        <Stack.Screen
+        name="User"
+        component={User}
+        options={{
+          title: '',
+          headerStyle: {
+            height: '0px'
+          }
+        }}
         />
       </Stack.Navigator>
     </NavigationContainer>
