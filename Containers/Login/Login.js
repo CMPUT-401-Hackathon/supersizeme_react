@@ -135,10 +135,7 @@ const Login = ({navigation, props}) => {
 				navigation.replace('Main', {username: resp.data.user, age: resp.data.age, height: resp.data.height, gender: resp.data.gender, weight: resp.data.weight, activityLevel:resp.data.activityLevel});
 			}
 		});
-		
-		if (username.length !== 0) {
-			navigation.replace('Main', {username});
-		}
+
 	}
 
 	return (
