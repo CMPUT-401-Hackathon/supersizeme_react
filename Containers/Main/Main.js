@@ -93,6 +93,8 @@ const Main = ({navigation, route}) => {
 		.then(res => {
 			setCategories(res.data);
 		});
+
+		axios.get
 	}, []);
 
     return (
