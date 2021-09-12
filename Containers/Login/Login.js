@@ -113,7 +113,16 @@ const Login = ({navigation, props}) => {
 	}
 
 	const signUp = () => {
-		console.log('send http request to make a new account');
+		const signUp = () => {
+			console.log('sending http request to make a new account');
+			const user = {'username': username, 'age': age, 'height': height,
+					'gender' : sexSelected, 'weight': weight, 'activityLevel': activity}
+			axios.post(`http://127.0.0.1:8000/User/UpdateUser/`, user)
+			.then(res => {
+				console.log(res)
+				console.log(res.data)
+			});
+		}
 	}
 
 	const login = () => {
