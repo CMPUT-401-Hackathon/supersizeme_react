@@ -118,10 +118,11 @@ const Login = ({navigation, props}) => {
 		const user = {'username': username, 'age': age, 'height': height,
 				'gender' : sexSelected, 'weight': weight, 'activityLevel': activity}
 		axios.post(`http://127.0.0.1:8000/User/UpdateUser/`, user)
-			.then(res => {
-				console.log(res);
-				console.log(res.data);
-			});
+		.then(res => {
+			if (res.status === 201) {
+				navigation.replace('Main', {username, age, height, sexSelected, weight, activity});
+			}
+		});
 	}
 
 	const login = () => {
