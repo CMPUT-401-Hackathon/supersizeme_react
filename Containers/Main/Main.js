@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Image, View, StyleSheet, ScrollView, DeviceEventEmitter } from 'react-native';
+import { Text, Image, View, StyleSheet, ScrollView, DeviceEventEmitter, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -39,8 +40,8 @@ const Main = ({navigation, route}) => {
 
 	const [categories, setCategories] = useState([]);
 
-	const {username, age, height, sexSelected, weight, activity} = route.params;
-
+	const {username, age, height, gender, weight, activityLevel} = route.params;
+	console.log(route.params)
   
 	const onChange = (event, selectedDate) => {
 		const currentDate = selectedDate || date;
@@ -74,7 +75,7 @@ const Main = ({navigation, route}) => {
 	}
 
 	const onUserPageClicked = () => {
-		navigation.replace('User', {username, age, height, sexSelected, weight, activity});
+		navigation.replace('User', {username, age, height, gender, weight, activityLevel});
 	}
 
 	DeviceEventEmitter.addListener("event.itemClicked", (d) => {
@@ -164,7 +165,24 @@ const Main = ({navigation, route}) => {
 					onPress={toggleOverlay}
 				/>
 			</SpeedDial>
-			<Text style={{padding: 30}} onPress={onUserPageClicked}> CLICK HERE</Text>
+			<TouchableOpacity 
+			onPress={onUserPageClicked}
+			style={{ borderWidth:1,
+				borderColor:'rgba(0,0,0,0.2)',
+				alignItems:'center',
+				marginBottom:44,
+				marginLeft: 18,
+				justifyContent:'center',
+				width:55,
+				height:55,
+				backgroundColor:'dodgerblue',
+				borderRadius:100,
+			}}
+			>
+			<Icon name={"cog"}
+    		size={30}
+    		color="#fff" />
+			</TouchableOpacity>
 		</View>
     );
 }

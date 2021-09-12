@@ -5,50 +5,45 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import axios from 'axios';
 
-    const sexes = ['Male', 'Female'];
+const User = ({route, navigation}) => {
+	const sexes = ['Male', 'Female'];
 	const activityLevels = ['Sedentary', 'Light Activity', 'Moderate Activity', 'Active', 'Very Active'];
-
+	var {username, age, height, gender, weight, activityLevel} = route.params;
+	console.log(gender);
+	const [sexSelected, setSexSelected] = useState(0);
 	const formChanged = (label, text) => {
 		switch (label) {
-			case 'username':
-				username=text;
-				break;
 			case 'age':
-				age=text;
+				age = text;
 				break;
 			case 'height':
-				height=text;
+				height = text;
 				break;
 			case 'weight':
-				weight=text;
+				weight = text;
 				break;
 			default:
 				console.log('unknown value added to form');
 		}
 	}
-
-	const updateSexIndex = (i) => {
-		setSexSelected(i);
+	const updateSexIndex = (u) => {
+		setSexSelected(u);
 	}
 
 	const activityChanged = (selectedItem, index) => {
-		activity = index+1;
+		activityLevel = index;
 	}
-
-    const updateUser = () => {
+	    const updateUser = () => {
 		console.log('sending http request to update current user');
 		const user = {'username': username, 'age': age, 'height': height,
-				'gender' : sexSelected, 'weight': weight, 'activityLevel': activity}
+				'gender' : sexSelected, 'weight': weight, 'activityLevel': activityLevel}
 		axios.post(`http://127.0.0.1:8000/User/UpdateUser/`, user)
 		.then(res => {
 			if (res.status === 201) {
-				navigation.replace('Main', {username, age, height, sexSelected, weight, activity});
+				navigation.replace('Main', {username, age, height, sexSelected, weight, activityLevel});
 			}
 		});
 	}
-
-const User = ({route, navigation}) => {
-	var {username, age, height, sexSelected, weight, activity} = route.params;
     return <View>
         <Text style={styles.headerText}>Edit User Information</Text>
         <View style={styles.inputForm}>
@@ -61,20 +56,19 @@ const User = ({route, navigation}) => {
 					/>
 					<Input
 						placeholder='Age'
-                        value = {age}
+                        defaultValue = {age}
 						onChangeText={value => formChanged('age', value)}
 					/>
 					<Input
 						placeholder='Height'
-                        value = {height}
+                        defaultValue = {height.toString()}
 						onChangeText={value => formChanged('height', value)}
 					/>
 					<Input
 						placeholder='Weight'
-                        value = {weight}
+                        defaultValue = {weight.toString()}
 						onChangeText={value => formChanged('weight', value)}
 					/>
-
 					<Text style={styles.formLabel}>Sex</Text>
 					<ButtonGroup
 						onPress={updateSexIndex}
@@ -86,11 +80,10 @@ const User = ({route, navigation}) => {
 					<Text style={styles.formLabel}>Activity Level</Text>
 					<SelectDropdown
 							data={activityLevels}
-
 							onSelect={(selectedItem, index) => {
 								activityChanged(selectedItem, index);
 							}}
-							defaultButtonText={"Select Activity Level"}
+							defaultButtonText={activityLevels[activityLevel]}
 							buttonTextAfterSelection={(selectedItem, index) => {
 								return selectedItem;
 							}}

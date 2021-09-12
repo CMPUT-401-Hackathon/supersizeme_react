@@ -60,9 +60,6 @@ export default function App() {
         }}
         />
       </Stack.Navigator>
-      {/* <Tab.Navigator>
-      <Tab.Screen name="Home" component={User}/>
-    </Tab.Navigator> */}
     </NavigationContainer>
   );
 }
