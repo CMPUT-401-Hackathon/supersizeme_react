@@ -3,6 +3,7 @@ import { Text, Image, View, StyleSheet, ScrollView, Button, TouchableOpacity } f
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
 
 import NutrientCard from '../../Components/NutrientCard';
 
@@ -47,6 +48,8 @@ const Main = ({navigation, route}) => {
 	const [menuVisible, setMenuVisible] = useState(false);
 
 	const [date, setDate] = useState(new Date());
+
+	const [categories, setCategories] = useState([]);
   
 	const onChange = (event, selectedDate) => {
 		const currentDate = selectedDate || date;
@@ -80,7 +83,10 @@ const Main = ({navigation, route}) => {
 
 	useEffect(() => {
 		// call api for nutrition info
-		
+		axios.get(`http://127.0.0.1:8000/nutrition/`)
+		.then(res => {
+			setCategories(res.data);
+		});
 	}, []);	
     return (
 		<View style={{height: '100%'}}>
