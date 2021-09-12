@@ -23,7 +23,7 @@ const colours = {
 	'fats': '#870f35'
 };
 
-const temp_rec = {
+let temp_rec = {
 	'calories': 2500,
 	'protein': 200,
 	'carbs': 300,
@@ -91,7 +91,16 @@ const Main = ({navigation, route}) => {
 		// call api for nutrition info
 		axios.get(`http://127.0.0.1:8000/nutrition/`)
 		.then(res => {
+			console.log('nutrition', res)
 			setCategories(res.data);
+		});
+		axios.get(`http://127.0.0.1:8000/log/${username}/`).then(res => {
+			console.log('logs', res.data)
+		});
+		axios.get(`http://127.0.0.1:8000/User/${username}/calrecs/`).then(res => {
+			console.log('calrecs', res.data)
+			temp_rec = res.data
+
 		});
 	}, []);
 
