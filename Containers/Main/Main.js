@@ -78,6 +78,9 @@ const Main = ({navigation, route}) => {
 		
 	};
 
+	useEffect(() => {
+		// loadDataOnlyOnce();
+	}, []);	
     return (
 		<View style={{height: '100%'}}>
 			<ScrollView>
