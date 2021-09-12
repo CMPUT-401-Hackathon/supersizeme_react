@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from './Containers/Login/Login';
 import Main from './Containers/Main/Main';
+import Menu from './Containers/Menu/Menu';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,16 @@ export default function App() {
         <Stack.Screen
           name="Main"
           component={Main}
+          options={{
+            title: '',
+            headerStyle: {
+              height: '0px'
+            }
+          }}
+        />
+        <Stack.Screen
+          name="Menu"
+          component={Menu}
           options={{
             title: '',
             headerStyle: {

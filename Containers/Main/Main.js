@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Text, Image, View, StyleSheet, ScrollView, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, Image, View, StyleSheet, ScrollView, DeviceEventEmitter } from 'react-native';
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
 
 import NutrientCard from '../../Components/NutrientCard';
 
@@ -44,8 +45,12 @@ const Main = ({navigation, route}) => {
 			}
 		}
 	]);
-
 	const [date, setDate] = useState(new Date());
+
+	const [categories, setCategories] = useState([]);
+
+	const {username, age, height, sexSelected, weight, activity} = route.params;
+
   
 	const onChange = (event, selectedDate) => {
 		const currentDate = selectedDate || date;
@@ -66,7 +71,6 @@ const Main = ({navigation, route}) => {
 				}
 			});
 		setDays(currentDays);
-
 	};
 
 	const toggleOverlay = () => {
@@ -74,18 +78,37 @@ const Main = ({navigation, route}) => {
 		setShowDateTime(true);
 	};
 
+	const onNutrientCardClicked = (i) => {
+		const dateString = days[i].date.getFullYear() + '-' + ('0' + (days[i].date.getMonth()+1)).slice(-2) + '-' + ('0' + days[i].date.getDate()).slice(-2)
+		navigation.navigate('Menu', {date: dateString, categories, username});
+	}
+
+	DeviceEventEmitter.addListener("event.itemClicked", (d) => {
+		// update user data here
+	});
+
+	useEffect(() => {
+		// call api for nutrition info
+		axios.get(`http://127.0.0.1:8000/nutrition/`)
+		.then(res => {
+			setCategories(res.data);
+		});
+	}, []);
+
     return (
 		<View style={{height: '100%'}}>
 			<ScrollView>
 				{
 					days.map((day, i) => {
-						return <NutrientCard 
-							key={i}
-							current={day.info}
-							recommend={temp_rec}
-							date={day.date}
-						/>
-					})
+						return (
+							<NutrientCard 
+								key={i}
+								current={day.info}
+								recommend={temp_rec}
+								date={day.date}
+								onClick={() => onNutrientCardClicked(i)}
+							/>
+						)})
 				}
 			</ScrollView>
 			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
