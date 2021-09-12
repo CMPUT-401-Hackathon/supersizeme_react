@@ -20,6 +20,7 @@ const NutrientCard = (props) => {
     };
 
     const onClick = () => {
+        console.log(monthNames[props.date.getMonth()] + " " + props.date.getDate());
         props.onClick();
     }
     
@@ -27,7 +28,7 @@ const NutrientCard = (props) => {
 		<View>
             <TouchableOpacity onPress={onClick}>
                 <Card>
-                    <Card.Title>{monthNames[props.date.getMonth()] + " " + props.date.getDate()}</Card.Title>
+                    <Card.Title>{monthNames[props.date.getMonth()] + " " + (props.date.getDate()+1)}</Card.Title>
                     <Card.Divider/>
                     <View style={{flexDirection:"row"}}>
                         <View styles={styles.circleContainer}>

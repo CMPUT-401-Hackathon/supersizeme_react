@@ -69,12 +69,12 @@ const Main = ({navigation, route}) => {
 	};
 
 	const onNutrientCardClicked = (i) => {
-		const dateString = days[i].date.getFullYear() + '-' + ('0' + (days[i].date.getMonth()+1)).slice(-2) + '-' + ('0' + days[i].date.getDate()).slice(-2)
+		const dateString = days[i].date.getFullYear() + '-' + ('0' + (days[i].date.getMonth()+1)).slice(-2) + '-' + ('0' + (days[i].date.getDate()+1)).slice(-2)
 		navigation.navigate('Menu', {date: dateString, categories, username});
 	}
 
 	DeviceEventEmitter.addListener("event.itemClicked", (d) => {
-		axios.get(`http://127.0.0.1:8000/log/${username}/`)
+		axios.get(`https://supersizemeproduction.herokuapp.com/log/${username}/`)
 		.then(res => {
 			let arraydata = [];
 			res.data.forEach(function(obj){
@@ -94,11 +94,11 @@ const Main = ({navigation, route}) => {
 
 	useEffect(() => {
 		// call api for nutrition info
-		axios.get(`http://127.0.0.1:8000/nutrition/`)
+		axios.get(`https://supersizemeproduction.herokuapp.com/nutrition/`)
 		.then(res => {
 			setCategories(res.data);
 		});
-		axios.get(`http://127.0.0.1:8000/log/${username}/`)
+		axios.get(`https://supersizemeproduction.herokuapp.com/log/${username}/`)
 		.then(res => {
 			let arraydata = []
 			res.data.forEach(function(obj){
@@ -114,7 +114,7 @@ const Main = ({navigation, route}) => {
 			});
 			setDays(arraydata);
 		});
-		axios.get(`http://127.0.0.1:8000/User/${username}/calrecs/`).then(res => {
+		axios.get(`https://supersizemeproduction.herokuapp.com/calrecs/${username}/calrecs/`).then(res => {
 			temp_rec = res.data
 		});
 	}, []);
