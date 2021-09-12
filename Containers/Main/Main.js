@@ -96,6 +96,21 @@ const Main = ({navigation, route}) => {
 		});
 		axios.get(`http://127.0.0.1:8000/log/${username}/`).then(res => {
 			console.log('logs', res.data)
+			let arraydata = []
+			res.data.forEach(function(obj){
+				arraydata.push({
+					date: new Date(obj.date),
+					info: {
+						'calories': obj.calories,
+						'protein': obj.protein,
+						'carbs': obj.carbohydrates,
+						'fats': obj.total_fat
+					}
+				})
+			}
+
+			setDays(arraydata);
+
 		});
 		axios.get(`http://127.0.0.1:8000/User/${username}/calrecs/`).then(res => {
 			console.log('calrecs', res.data)

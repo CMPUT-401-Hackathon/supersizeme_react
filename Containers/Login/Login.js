@@ -136,8 +136,6 @@ const Login = ({navigation, props}) => {
 			}
 		});
 		
-		setLoggedIn(true);
-
 		if (username.length !== 0) {
 			navigation.replace('Main', {username});
 		}
