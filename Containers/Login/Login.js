@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Button, Input, ButtonGroup } from 'react-native-elements';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import axios from 'axios';
 
 const styles = StyleSheet.create({
 	buttonStyle: {
@@ -113,16 +114,14 @@ const Login = ({navigation, props}) => {
 	}
 
 	const signUp = () => {
-		const signUp = () => {
-			console.log('sending http request to make a new account');
-			const user = {'username': username, 'age': age, 'height': height,
-					'gender' : sexSelected, 'weight': weight, 'activityLevel': activity}
-			axios.post(`http://127.0.0.1:8000/User/UpdateUser/`, user)
+		console.log('sending http request to make a new account');
+		const user = {'username': username, 'age': age, 'height': height,
+				'gender' : sexSelected, 'weight': weight, 'activityLevel': activity}
+		axios.post(`http://127.0.0.1:8000/User/UpdateUser/`, user)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);
 			});
-		}
 	}
 
 	const login = () => {

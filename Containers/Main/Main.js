@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Image, View, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
@@ -79,7 +79,8 @@ const Main = ({navigation, route}) => {
 	};
 
 	useEffect(() => {
-		// loadDataOnlyOnce();
+		// call api for nutrition info
+		
 	}, []);	
     return (
 		<View style={{height: '100%'}}>
