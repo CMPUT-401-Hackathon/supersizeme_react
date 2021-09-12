@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, Image, View, StyleSheet, ScrollView, DeviceEventEmitter } from 'react-native';
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -48,6 +48,9 @@ const Main = ({navigation, route}) => {
 	const [date, setDate] = useState(new Date());
 
 	const [categories, setCategories] = useState([]);
+
+	const {username, age, height, sexSelected, weight, activity} = route.params;
+
   
 	const onChange = (event, selectedDate) => {
 		const currentDate = selectedDate || date;
@@ -76,8 +79,13 @@ const Main = ({navigation, route}) => {
 	};
 
 	const onNutrientCardClicked = (i) => {
-		console.log(i);
+		const dateString = days[i].date.getFullYear() + '-' + ('0' + (days[i].date.getMonth()+1)).slice(-2) + '-' + ('0' + days[i].date.getDate()).slice(-2)
+		navigation.navigate('Menu', {date: dateString, categories, username});
 	}
+
+	DeviceEventEmitter.addListener("event.itemClicked", (d) => {
+		// update user data here
+	});
 
 	useEffect(() => {
 		// call api for nutrition info
