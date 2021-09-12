@@ -119,8 +119,8 @@ const Login = ({navigation, props}) => {
 					'gender' : sexSelected, 'weight': weight, 'activityLevel': activity}
 			axios.post(`http://127.0.0.1:8000/User/UpdateUser/`, user)
 			.then(res => {
-				console.log(res)
-				console.log(res.data)
+				console.log(res);
+				console.log(res.data);
 			});
 		}
 	}
