@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, Image, View, StyleSheet, ScrollView, Button } from 'react-native';
+import { Text, Image, View, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -44,6 +44,7 @@ const Main = ({navigation, route}) => {
 			}
 		}
 	]);
+	const [menuVisible, setMenuVisible] = useState(false);
 
 	const [date, setDate] = useState(new Date());
   
@@ -66,7 +67,6 @@ const Main = ({navigation, route}) => {
 				}
 			});
 		setDays(currentDays);
-
 	};
 
 	const toggleOverlay = () => {
@@ -74,17 +74,24 @@ const Main = ({navigation, route}) => {
 		setShowDateTime(true);
 	};
 
+	const onCardClicked = (i) => {
+		
+	};
+
     return (
 		<View style={{height: '100%'}}>
 			<ScrollView>
 				{
 					days.map((day, i) => {
-						return <NutrientCard 
-							key={i}
-							current={day.info}
-							recommend={temp_rec}
-							date={day.date}
-						/>
+						return (
+						<TouchableOpacity onPress={onCardClicked(i)} key={i}> 
+							<NutrientCard 
+								key={i}
+								current={day.info}
+								recommend={temp_rec}
+								date={day.date}
+							/>
+						</TouchableOpacity>)
 					})
 				}
 			</ScrollView>
