@@ -32,6 +32,7 @@ const temp_rec = {
 const Main = ({navigation, route}) => {
 	const [open, setOpen] = useState(false);
 	const [visible, setVisible] = useState(false);
+	const [showDateTime, setShowDateTime] = useState(true);
 	const [days, setDays] = useState([
 		{
 			date: new Date(),
@@ -48,19 +49,15 @@ const Main = ({navigation, route}) => {
   
 	const onChange = (event, selectedDate) => {
 		const currentDate = selectedDate || date;
-		setVisible(Platform.OS === 'ios');
+		setShowDateTime(false);
 		setDate(currentDate);
-		};
+		setOpen(false);
+		setVisible(false);
 
-	const toggleOverlay = () => {
-		setVisible(!visible);
-	};
-
-	const newDateAdded = () => {
 		const currentDays = [...days];
 		currentDays.push(
 			{
-				date: date,
+				date: currentDate,
 				info: {
 					'calories': 0,
 					'protein': 0,
@@ -69,7 +66,13 @@ const Main = ({navigation, route}) => {
 				}
 			});
 		setDays(currentDays);
-	}
+
+	};
+
+	const toggleOverlay = () => {
+		setVisible(!visible);
+		setShowDateTime(true);
+	};
 
     return (
 		<View style={{height: '100%'}}>
@@ -87,18 +90,13 @@ const Main = ({navigation, route}) => {
 			</ScrollView>
 			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
 				<View style={{width: 150, alignContent: 'center', justifyContent: 'center'}}>
-					<DateTimePicker
+					{showDateTime && <DateTimePicker
 						testID="dateTimePicker"
 						value={date}
 						mode='date'
 						display="default"
 						onChange={onChange}
-					/>
-					<Button
-						title="Add"
-						type="solid"
-						onPress={() => newDateAdded()}
-					/>
+					/>}
 				</View>
 			</Overlay>
 			<SpeedDial
