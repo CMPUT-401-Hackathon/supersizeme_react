@@ -83,6 +83,10 @@ const Main = ({navigation, route}) => {
 		navigation.navigate('Menu', {date: dateString, categories, username});
 	}
 
+	const onUserPageClicked = () => {
+		navigation.replace('User', {username, age, height, sexSelected, weight, activity});
+	}
+
 	DeviceEventEmitter.addListener("event.itemClicked", (d) => {
 		// update user data here
 	});
@@ -97,6 +101,7 @@ const Main = ({navigation, route}) => {
 
     return (
 		<View style={{height: '100%'}}>
+			<Text style={styles.headerText}>Welcome Back {username}</Text>
 			<ScrollView>
 				{
 					days.map((day, i) => {
@@ -135,6 +140,7 @@ const Main = ({navigation, route}) => {
 					onPress={toggleOverlay}
 				/>
 			</SpeedDial>
+			<Text style={{padding: 30}} onPress={onUserPageClicked}> CLICK HERE</Text>
 		</View>
     );
 }
@@ -165,6 +171,12 @@ const styles = StyleSheet.create({
 		paddingTop: 10,
 		paddingBottom: 10,
 		fontWeight: 'bold'
+	},
+	headerText: {
+		fontSize: 18,
+		paddingTop: 16,
+		fontWeight: 'bold',
+		textAlign: 'center'
 	}
 });
 
