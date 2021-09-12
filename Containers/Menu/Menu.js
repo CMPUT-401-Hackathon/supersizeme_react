@@ -15,6 +15,7 @@ const Menu = ({route, navigation}) => {
 	}
 
 	const itemClicked = (i) => {
+		console.log(date);
 		axios.post(`http://127.0.0.1:8000/log/${username}/${date}/`, {item:items[i].name, amount:1})
 		.then(res => {
 			if (res.status === 201) {

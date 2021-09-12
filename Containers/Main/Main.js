@@ -24,10 +24,10 @@ const colours = {
 };
 
 let temp_rec = {
-	'calories': 2500,
-	'protein': 200,
-	'carbs': 300,
-	'fats': 60
+	'calories': 0,
+	'protein': 0,
+	'carbs': 0,
+	'fats': 0
 }
 
 const Main = ({navigation, route}) => {
@@ -74,7 +74,22 @@ const Main = ({navigation, route}) => {
 	}
 
 	DeviceEventEmitter.addListener("event.itemClicked", (d) => {
-		// update user data here
+		axios.get(`http://127.0.0.1:8000/log/${username}/`)
+		.then(res => {
+			let arraydata = [];
+			res.data.forEach(function(obj){
+				arraydata.push({
+					date: new Date(obj.date),
+					info: {
+						'calories': obj.calories,
+						'protein': obj.protein,
+						'carbs': obj.carbohydrates,
+						'fats': obj.total_fat
+					}
+				});
+			});
+			setDays(arraydata);
+		});
 	});
 
 	useEffect(() => {
@@ -83,8 +98,8 @@ const Main = ({navigation, route}) => {
 		.then(res => {
 			setCategories(res.data);
 		});
-		axios.get(`http://127.0.0.1:8000/log/${username}/`).then(res => {
-			console.log('logs', res.data)
+		axios.get(`http://127.0.0.1:8000/log/${username}/`)
+		.then(res => {
 			let arraydata = []
 			res.data.forEach(function(obj){
 				arraydata.push({
@@ -95,14 +110,11 @@ const Main = ({navigation, route}) => {
 						'carbs': obj.carbohydrates,
 						'fats': obj.total_fat
 					}
-				})
-			}
-
+				});
+			});
 			setDays(arraydata);
-
 		});
 		axios.get(`http://127.0.0.1:8000/User/${username}/calrecs/`).then(res => {
-			console.log('calrecs', res.data)
 			temp_rec = res.data
 		});
 	}, []);
