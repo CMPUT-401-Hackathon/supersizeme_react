@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Image, View, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
 import { SpeedDial, Overlay } from 'react-native-elements';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -45,8 +45,6 @@ const Main = ({navigation, route}) => {
 			}
 		}
 	]);
-	const [menuVisible, setMenuVisible] = useState(false);
-
 	const [date, setDate] = useState(new Date());
 
 	const [categories, setCategories] = useState([]);
@@ -77,9 +75,9 @@ const Main = ({navigation, route}) => {
 		setShowDateTime(true);
 	};
 
-	const onCardClicked = (i) => {
-		
-	};
+	const onNutrientCardClicked = (i) => {
+		console.log(i);
+	}
 
 	useEffect(() => {
 		// call api for nutrition info
@@ -87,22 +85,22 @@ const Main = ({navigation, route}) => {
 		.then(res => {
 			setCategories(res.data);
 		});
-	}, []);	
+	}, []);
+
     return (
 		<View style={{height: '100%'}}>
 			<ScrollView>
 				{
 					days.map((day, i) => {
 						return (
-						<TouchableOpacity onPress={onCardClicked(i)} key={i}> 
 							<NutrientCard 
 								key={i}
 								current={day.info}
 								recommend={temp_rec}
 								date={day.date}
+								onClick={() => onNutrientCardClicked(i)}
 							/>
-						</TouchableOpacity>)
-					})
+						)})
 				}
 			</ScrollView>
 			<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
