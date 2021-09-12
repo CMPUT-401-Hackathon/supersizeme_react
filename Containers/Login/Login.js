@@ -124,7 +124,7 @@ const Login = ({navigation, props}) => {
 		};
 		
 		console.log(user);
-		axios.post(`http://localhost:8000/User/UpdateUser/`, user)
+		axios.post(`https://supersizemeproduction.herokuapp.com/User/UpdateUser/`, user)
 			.then(res => {
 				if (res.status === 201) {
 					navigation.replace('Main', {username, age, height, gender, weight, activity});

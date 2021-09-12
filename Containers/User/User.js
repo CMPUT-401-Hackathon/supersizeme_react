@@ -37,7 +37,7 @@ const User = ({route, navigation}) => {
 		console.log('sending http request to update current user');
 		const user = {'username': username, 'age': age, 'height': height,
 				'gender' : sexSelected, 'weight': weight, 'activityLevel': activityLevel}
-		axios.post(`http://127.0.0.1:8000/User/UpdateUser/`, user)
+		axios.post(`https://supersizemeproduction.herokuapp.com/User/UpdateUser/`, user)
 		.then(res => {
 			if (res.status === 201) {
 				navigation.replace('Main', {username, age, height, sexSelected, weight, activityLevel});
