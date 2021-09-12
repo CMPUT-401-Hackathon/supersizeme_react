@@ -34,17 +34,7 @@ const Main = ({navigation, route}) => {
 	const [open, setOpen] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [showDateTime, setShowDateTime] = useState(true);
-	const [days, setDays] = useState([
-		{
-			date: new Date(),
-			info: {
-				'calories': 2142,
-				'protein': 134,
-				'carbs': 80,
-				'fats': 100
-			}
-		}
-	]);
+	const [days, setDays] = useState([]);
 	const [date, setDate] = useState(new Date());
 
 	const [categories, setCategories] = useState([]);
@@ -91,7 +81,6 @@ const Main = ({navigation, route}) => {
 		// call api for nutrition info
 		axios.get(`http://127.0.0.1:8000/nutrition/`)
 		.then(res => {
-			console.log('nutrition', res)
 			setCategories(res.data);
 		});
 		axios.get(`http://127.0.0.1:8000/log/${username}/`).then(res => {
@@ -100,7 +89,6 @@ const Main = ({navigation, route}) => {
 		axios.get(`http://127.0.0.1:8000/User/${username}/calrecs/`).then(res => {
 			console.log('calrecs', res.data)
 			temp_rec = res.data
-
 		});
 	}, []);
 
